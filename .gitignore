@@ -1,2 +1,12 @@
+# Python 
 .ipynb_checkpoints
+
+# Folders
+
+# Files
+*.zip
+*.tar
+*.tar.*
+
+# To be unignored later
 vae
