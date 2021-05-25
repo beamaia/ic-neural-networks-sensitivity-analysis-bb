@@ -22,7 +22,6 @@ def save_txt_accuracy_loss (accuracies, losses, date, model, version=1, training
     np.savetxt(PATH_accuracy, accuracies)
     np.savetxt(PATH_loss, losses)
 
-
 def save_model_dict (model, model_name, date, version=1):
     PATH = './saved_models/' + str(model_name)  + "_" + str(date) + "_" + str(version)
     torch.save(model.state_dict(), PATH)
@@ -82,18 +81,6 @@ def calculate_true_false_results (y_test, y_predict):
 
     return df_amount, df_percentage, masks
 
-def save_y_true_predict (y_test, y_predict, model_name, date, version=1):
-    # y_predict = []
-    # for _, x in enumerate(y_test_predict):
-    #     for y in x:
-    #         y_predict.append(int(y)) 
-
-    PATH = str(model_name) + "_" + str(date) + "_" + str(version)
-    PATH_yt = "./y_predict/y_test_" + PATH + ".txt"
-    PATH_yp = "./y_predict/y_predict_" + PATH + ".txt"
-
-    np.savetxt(PATH_yp, y_predict, delimiter=",")
-    np.savetxt(PATH_yt,y_test, delimiter=",")
 
 def save_dataframes (y_test, y_predict, model_name, date, version=1):
     # y_predict = []
@@ -117,42 +104,17 @@ def save_dataframes (y_test, y_predict, model_name, date, version=1):
     np.savetxt(PATH_yp, y_predict, delimiter=",")
     np.savetxt(PATH_yt,y_test, delimiter=",")
 
+def save_train_results (model, results):
+    PATH = "./results/train_val/" + str(model.model_name) + "-" + str(model.op_name) + "-v" + str(model.version) + ".csv"
+    df = pd.DataFrame(results)
+    print(df)
 
-def save_test_accuracy (test_accuracy, balanced_test_accuracy, model_name, date, version=1, new=False, sets=1):
-    PATH = "./test_accuracies/accuracies.csv"
-    # test_accuracy = str(test_accuracy)
-    # version = str(version)
-    df = pd.DataFrame({'Model': [model_name],'Accuracy': [test_accuracy], 'Balanced Accuracy': balanced_test_accuracy, 'Date': [date], 'Version':[version], 'Set': [sets]})
+    df.to_csv(PATH, index=False)
 
-    if not new:
-        df_origin = pd.read_csv(PATH, index_col=False)
-        df = df_origin.append(df)
-        df.to_csv(PATH, index=False)
-    else:
-        df.to_csv(PATH)
-
-def plot_accuracy_loss (epochs, model, losses, accuracies, date, version=1, training=True):
-    epoch = range(epochs)
-
-    if plt.get_fignums():
-        plt.close()
-
-    plt.plot(epoch, losses, 'g', label='Loss')
-    plt.plot(epoch, accuracies, 'b', label='Accuracy')
-
-    if training:
-        plt.title('Training accuracies and losses')
-        PATH = "./graphs/train_"
-        xlabel = "Train - "
-    else:
-        plt.title('Validation accuracies and losses')
-        PATH = "./graphs/val_"
-        xlabel = "Validation - "
-
-    xlabel += "Epochs on " + str(model) + " | " + str(date) + " Version: " + str(version)
-    plt.xlabel(xlabel)
-    plt.legend()
-
-    PATH += str(model) + "_" + str(date) + "_" + str(version) + ".png"
-    plt.savefig(PATH)
-    plt.close()
+def save_test_results (results):
+    PATH = "./results/metrics.csv"
+    df = pd.DataFrame(results)
+    
+    df_origin = pd.read_csv(PATH, index_col=False)
+    df = df_origin.append(df)
+    df.to_csv(PATH, index=False)
