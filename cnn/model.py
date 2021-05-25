@@ -22,11 +22,6 @@ class Model:
         elif self.model_name == "mobilenetv2":
             self.model = models.mobilenet_v2(pretrained=True)
             self.model.classifier[1] = nn.Linear(1280, num_classes)
-        elif self.model_name == "inceptionv3":
-            self.hw = 299
-            self.model = models.inception_v3(pretrained=True, aux_logits = False)
-            self.model.AuxLogits.fc = nn.Linear(768, num_classes)
-            self.model.fc = nn.Linear(2048, num_classes)
         elif self.model_name == "vgg16":
             self.model = models.vgg16(pretrained=True)
             self.model.classifier[6] = nn.Linear(4096,num_classes)
