@@ -107,13 +107,12 @@ def save_dataframes (y_test, y_predict, model_name, date, version=1):
 def save_train_results (model, results):
     PATH = "./results/train_val/" + str(model.model_name) + "-" + str(model.op_name) + "-v" + str(model.version) + ".csv"
     df = pd.DataFrame(results)
-    print(df)
 
     df.to_csv(PATH, index=False)
 
 def save_test_results (results):
     PATH = "./results/metrics.csv"
-    df = pd.DataFrame(results)
+    df = pd.DataFrame([results])
     
     df_origin = pd.read_csv(PATH, index_col=False)
     df = df_origin.append(df)
