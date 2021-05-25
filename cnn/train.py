@@ -8,17 +8,25 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 import numpy as np
 import utils
+import model 
 
 from sklearn import metrics
 
-def train (model, model_name, train_loader, val_loader, weights, num_epochs, lr):
+def train (model_class, train_loader, val_loader, weights):
+    model = model_class.model
+    num_epochs = model_class.epochs
+    lr = model_class.lr
+
     print("Starting training...")
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
     print(f"Device: {device}",end="\n\n")
 
-    criterion = nn.CrossEntropyLoss() #Loss function
-    optimizer = optim.Adam(model.parameters(), lr=lr)
+    criterion = model_class.loss
+    optimizer = model_class.op
+
+    # criterion = nn.CrossEntropyLoss() #Loss function
+    # optimizer = optim.Adam(model.parameters(), lr=lr)
     train_accuracies = []
     train_losses = []
     y_predict = []
@@ -39,7 +47,6 @@ def train (model, model_name, train_loader, val_loader, weights, num_epochs, lr)
             images, labels = data[0].to(device), data[1].to(device)
             # Zero the parameter gradients
             optimizer.zero_grad()
-
             #Forward
             outputs = model(images)
 
@@ -83,7 +90,6 @@ def train (model, model_name, train_loader, val_loader, weights, num_epochs, lr)
                 total_val += labels.size(0)
                 _, predicted = torch.max(outputs, 1)
                 accuracies_val += (predicted == labels).sum().item()
-                
         
         accuracy_val = accuracies_val / total_val * 100
 
@@ -98,9 +104,10 @@ def train (model, model_name, train_loader, val_loader, weights, num_epochs, lr)
 
     return train_accuracies, train_losses, val_accuracies, val_losses, y_predict
 
-def test(model, test_loader):
+def test(model_class, test_loader):
     print("Starting test...")
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
+    model = model_class.model
     model.to(device)
     model.eval()
 
