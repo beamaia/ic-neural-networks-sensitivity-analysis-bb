@@ -11,14 +11,14 @@ from sklearn.feature_extraction.image import PatchExtractor
 import numpy as np
 
 def image_paths():
-    print("Getting images' path...")
+    print("Getting images' path...\n")
 
     PATH_train = '/home/turing/Desktop/humberto/Dataset-Dividido-aux/train/'
     PATH_val = '/home/turing/Desktop/humberto/Dataset-Dividido-aux/val/'
     PATH_test = '/home/turing/Desktop/humberto/Dataset-Dividido-aux/test/'
     
-    normal = 'classe0(normal)/'
-    carcinoma = 'classe1(carcinoma)/'
+    normal = 'classe0(normal)/*'
+    carcinoma = 'classe1(carcinoma)/*'
 
     train_normal = glob(PATH_train + normal)
     train_carcinoma = glob(PATH_train + carcinoma)
@@ -48,7 +48,7 @@ def process_images(images, height=1536, width=2048):
 
 def create_images_labels(x_normal, x_carcinoma):
 
-    print("Creating patches...")
+    print("Creating images and labels...")
     images = np.concatenate((x_normal, x_carcinoma), axis=0)
 
     labels_nr = np.zeros(len(x_normal))
@@ -61,7 +61,6 @@ def create_images_labels(x_normal, x_carcinoma):
     images = images.type(torch.FloatTensor) 
     labels = labels.type(torch.LongTensor) 
     
-    print("Created images and labels...")
     return images, labels
 
 def create_train_val_test(hw):
