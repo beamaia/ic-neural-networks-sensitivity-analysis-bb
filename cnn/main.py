@@ -59,6 +59,7 @@ def main(date_today, epochs, lr, op, model_name, version):
     # images    
     (x_train, y_train), (x_val, y_val), (x_test, y_test), (normal_len, carcinoma_len) = dt.create_train_val_test(model.hw)
 
+    # weights
     total = normal_len + carcinoma_len
     normal_ratio, carcinoma_ratio = normal_len/total, carcinoma_len/total
     
@@ -66,9 +67,11 @@ def main(date_today, epochs, lr, op, model_name, version):
     weight_dic = {0: carcinoma_ratio, 1: normal_ratio}
     train_sample_weights = compute_sample_weight(weight_dic, y_train) / (total)
     test_sample_weights = compute_sample_weight(weight_dic, y_test) / total
+    
     # dataloaders
     train_loader, val_loader, test_loader = dt.create_dataloaders(x_train, y_train, x_val, y_val, x_test, y_test, train_sample_weights, batch_size=32)
 
+    # configure weighted loss
     model.configure_loss_func(weight_tensor)
 
     model_dict = {
@@ -79,6 +82,7 @@ def main(date_today, epochs, lr, op, model_name, version):
         "balanced_accuracy": None,
         "precision": None,
         "recall": None,
+        "f1": None,
         "tp": 0,
         "fp": 0,
         "tn": 0,
@@ -132,15 +136,21 @@ def main(date_today, epochs, lr, op, model_name, version):
 
     print("Saving test data...")
 
-    balanced_test_accuracy = metrics.balanced_accuracy_score(y_test_true, y_test_predict, sample_weight=test_sample_weights)
+    balanced_test_accuracy = metrics.balanced_accuracy_score(y_test_true, y_test_predict, sample_weight=test_sample_weights) * 100
     tn, fp, fn, tp = metrics.confusion_matrix(y_test_true, y_test_predict).ravel()
-
+    precision = metrics.precision_score(y_test_true, y_test_predict)
+    recall = metrics.recall_score(y_test_true, y_test_predict)
+    f1 = metrics.f1_score(y_test_true, y_test_predict)
+        
     model_dict["accuracy"] = test_accuracy   
     model_dict["balanced_accuracy"] = balanced_test_accuracy
     model_dict["tn"] = tn
     model_dict["fp"] = fp
     model_dict["fn"] = fn
     model_dict["tp"] = tp
+    model_dict["precision"] = precision
+    model_dict["recall"] = recall
+    model_dict["f1"] = f1
 
     print("Balanced accuracy: ", balanced_test_accuracy)
 
