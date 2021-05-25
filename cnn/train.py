@@ -8,17 +8,25 @@ import torch.nn as nn
 from torch.utils.data import Dataset, DataLoader
 import numpy as np
 import utils
+import model 
 
 from sklearn import metrics
 
-def train (model, model_name, train_loader, val_loader, weights, num_epochs, lr):
+def train (model_class, train_loader, val_loader, weights, num_epochs, lr):
+    model = model_class.model
+    num_epochs = model_class.epochs
+    lr = model_class.lr
+
     print("Starting training...")
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
     print(f"Device: {device}",end="\n\n")
 
-    criterion = nn.CrossEntropyLoss() #Loss function
-    optimizer = optim.Adam(model.parameters(), lr=lr)
+    criterion = model_class.loss
+    optimizer = model_class.op
+
+    # criterion = nn.CrossEntropyLoss() #Loss function
+    # optimizer = optim.Adam(model.parameters(), lr=lr)
     train_accuracies = []
     train_losses = []
     y_predict = []
