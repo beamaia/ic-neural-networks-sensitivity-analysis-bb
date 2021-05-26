@@ -75,6 +75,7 @@ def main(date_today, epochs, lr, op, model_name, version):
     model.configure_loss_func(weight_tensor)
 
     model_dict = {
+        "version": version,
         "model": model_name,
         "date": date_today,
         "numb_epochs": epochs,
