@@ -1,0 +1,33 @@
+Code related
+✔ Add dropout layer @started(21-05-26 17:55) @done(21-05-26 17:56) @lasted(1m4s)
+☐ Data augmentation
+    ☐ Search about data augmentatio
+    ☐ Add to code (parameters)
+✔ Add EfficientNetB4 @started(21-05-26 17:55) @done(21-05-26 18:22) @lasted(27m51s)
+☐ Script
+    ☐ Add tests to script
+✔ Split data 80/10/10 @started(21-05-26 15:53) @done(21-05-26 17:32) @lasted(1h39m21s)
+
+Train + test
+☐ ResNet50
+    ☐ Test #1.1 - with dropout - no data augmentation
+    ☐ Test #1.2 - with dropout + scheduler - no data augmentation
+    ☐ Test #2
+    ☐ Test #3
+☐ MobileNetV2
+    ☐ Test #1 - no data augmentation
+    ☐ Test #2 - no data augmentation
+    ☐ Test #3 - no data augmentation
+☐ VGG16
+    ☐ Test #1 - no data augmentation
+    ☐ Test #2 - no data augmentation
+    ☐ Test #3 - no data augmentation
+☐ DenseNet121
+    ☐ Test #1 - no data augmentation
+    ☐ Test #2 - no data augmentation
+    ☐ Test #3 - no data augmentation
+☐ EfficientNetB4
+    ☐ Test #1 - no data augmentation
+    ☐ Test #2 - no data augmentation
+    ☐ Test #3 - no data augmentation
+
