@@ -15,18 +15,18 @@ from sklearn import metrics
 def train (model_class, train_loader, val_loader, weights):
     model = model_class.model
     num_epochs = model_class.epochs
-    lr = model_class.lr
-
-    print("Starting training...")
+    # lr = model_class.lr
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
+    
+    print("Starting training...")
     print(f"Device: {device}",end="\n\n")
 
     criterion = model_class.loss
     optimizer = model_class.op
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)
 
-    # criterion = nn.CrossEntropyLoss() #Loss function
-    # optimizer = optim.Adam(model.parameters(), lr=lr)
+    # Creating lists
     train_accuracies = []
     train_losses = []
     y_predict = []
@@ -35,36 +35,11 @@ def train (model_class, train_loader, val_loader, weights):
 
     for epoch in range(num_epochs):
         print(f"Epoch {epoch + 1} / {num_epochs}")
-        # Model in training mode
-        model.train()
-    
-        running_loss = 0
-        total_train = 0
-        accuracies_train = 0
-        y_predict_loader = []
-        
-        for _, data in enumerate(train_loader):
-            images, labels = data[0].to(device), data[1].to(device)
-            # Zero the parameter gradients
-            optimizer.zero_grad()
-            #Forward
-            outputs = model(images)
 
-            loss = criterion(outputs, labels).to(device) 
-            loss.backward()
-
-            #Optimize
-            optimizer.step()
-
-            running_loss += loss.item()
-
-            #Train accuracy
-            _, predicted = torch.max(outputs, 1)
-            y_predict_loader.append(predicted)
-            total_train += labels.size(0)
-            accuracies_train += (predicted == labels).sum().item()
-
-        accuracy = accuracies_train / total_train * 100
+        # Train epoch   
+        running_loss, accuracy, y_predict_loader = train_epoch(model, optimizer, criterion, scheduler, train_loader, device)
+ 
+        # Saves information
         train_losses.append(np.mean(running_loss)) 
         train_accuracies.append(accuracy)
         y_predict.append(y_predict_loader)
@@ -73,36 +48,78 @@ def train (model_class, train_loader, val_loader, weights):
         print(f"Loss: {np.mean(running_loss):.2f}")
 
         # Validation 
-        val_loss = 0
-        total_val = 0
-       
-        with torch.no_grad():
-            accuracies_val = 0  
-            running_val_loss = 0
-            for _, data in enumerate(val_loader):
-                images, labels = data[0], data[1]
-                images, labels = images.to(device), labels.to(device)
-
-                outputs = model(images)
-                val_loss = criterion(outputs, labels)
-
-                running_val_loss += loss.item()
-                total_val += labels.size(0)
-                _, predicted = torch.max(outputs, 1)
-                accuracies_val += (predicted == labels).sum().item()
-        
-        accuracy_val = accuracies_val / total_val * 100
-
-        print(f"Val Accuracy: {accuracy_val:.2f} %")
-        print(f"Val Loss: {np.mean(running_val_loss):.2f}", end="\n\n")
-        
-        # Saving validation and 
-        val_losses.append(np.mean(running_val_loss))
-        val_accuracies.append(accuracy_val)
+        val_losses, val_accuracies = validation(model, criterion, val_loader, device, val_losses, val_accuracies)
 
     print("Finished training")
 
     return train_accuracies, train_losses, val_accuracies, val_losses, y_predict
+
+def train_epoch(model, optimizer, criterion, scheduler, train_loader, device):
+
+    # Model in training mode
+    model.train()
+    running_loss = 0
+    total_train = 0
+    accuracies_train = 0
+    y_predict_loader = []
+    
+    for _, data in enumerate(train_loader):
+        images, labels = data[0].to(device), data[1].to(device)
+        # Zero the parameter gradients
+        optimizer.zero_grad()
+        #Forward
+        outputs = model(images)
+
+        loss = criterion(outputs, labels).to(device) 
+        loss.backward()
+
+        #Optimize
+        optimizer.step()
+
+        running_loss += loss.item()
+
+        #Train accuracy
+        _, predicted = torch.max(outputs, 1)
+        y_predict_loader.append(predicted)
+        total_train += labels.size(0)
+        accuracies_train += (predicted == labels).sum().item()
+        accuracy = accuracies_train / total_train * 100
+
+        scheduler.step()
+    
+    return running_loss, accuracy, y_predict_loader
+
+def validation(model, criterion, val_loader, device, val_losses, val_accuracies):
+
+    # Validation 
+    val_loss = 0
+    total_val = 0
+    
+    with torch.no_grad():
+        accuracies_val = 0  
+        running_val_loss = 0
+        for _, data in enumerate(val_loader):
+            images, labels = data[0], data[1]
+            images, labels = images.to(device), labels.to(device)
+
+            outputs = model(images)
+            val_loss = criterion(outputs, labels)
+
+            running_val_loss += val_loss.item()
+            total_val += labels.size(0)
+            _, predicted = torch.max(outputs, 1)
+            accuracies_val += (predicted == labels).sum().item()
+    
+    accuracy_val = accuracies_val / total_val * 100
+
+    print(f"Val Accuracy: {accuracy_val:.2f} %")
+    print(f"Val Loss: {np.mean(running_val_loss):.2f}", end="\n\n")
+    
+    # Saving validation and 
+    val_losses.append(np.mean(running_val_loss))
+    val_accuracies.append(accuracy_val)
+
+    return val_losses, val_accuracies
 
 def test(model_class, test_loader):
     print("Starting test...")
