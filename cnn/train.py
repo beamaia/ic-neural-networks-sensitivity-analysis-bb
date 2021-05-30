@@ -24,7 +24,7 @@ def train (model_class, train_loader, val_loader, weights):
 
     criterion = model_class.loss
     optimizer = model_class.op
-    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5)
+    scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=20, gamma=0.5, verbose=True)
 
     # Creating lists
     train_accuracies = []
@@ -85,7 +85,7 @@ def train_epoch(model, optimizer, criterion, scheduler, train_loader, device):
         accuracies_train += (predicted == labels).sum().item()
         accuracy = accuracies_train / total_train * 100
 
-        scheduler.step()
+    scheduler.step()
     
     return running_loss, accuracy, y_predict_loader
 
