@@ -41,7 +41,7 @@ def get_arg(args):
         elif param == "model" or param == "model_name":
             model_name = value
         elif param == "version":
-            version = int(value)
+            version = float(value)
         elif param == "op":
             op = value
 
