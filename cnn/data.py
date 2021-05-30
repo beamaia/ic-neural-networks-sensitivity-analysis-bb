@@ -10,12 +10,22 @@ from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction.image import PatchExtractor
 import numpy as np
 
+################ Dataset path in Turing server ################
+TURING_train = '/home/turing/Desktop/humberto/Dataset-Dividido-aux/train/'
+TURING_val =  '/home/turing/Desktop/humberto/Dataset-Dividido-aux/val/'
+TURING_test = '/home/turing/Desktop/humberto/Dataset-Dividido-aux/test/'
+
+################ Dataset path in Hinton server ################
+HINTON_train = '/home/hinton/Desktop/Dados/Dataset-Dividido-aux/train/'
+HINTON_val = '/home/hinton/Desktop/Dados/Dataset-Dividido-aux/val/'
+HINTON_test = '/home/hinton/Desktop/Dados/Dataset-Dividido-aux/test/'
+
 def image_paths():
     print("Getting images' path...\n")
 
-    PATH_train = '/home/turing/Desktop/humberto/Dataset-Dividido-aux/train/'
-    PATH_val = '/home/turing/Desktop/humberto/Dataset-Dividido-aux/val/'
-    PATH_test = '/home/turing/Desktop/humberto/Dataset-Dividido-aux/test/'
+    PATH_train = HINTON_train
+    PATH_val = HINTON_val
+    PATH_test = HINTON_test
     
     normal = 'classe0(normal)/*'
     carcinoma = 'classe1(carcinoma)/*'
