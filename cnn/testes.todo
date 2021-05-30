@@ -10,6 +10,7 @@ Code related
 
 Train + test
 ☐ ResNet50
+    ✔ Test #1.0 - without dropout @done(21-05-29 23:37)
     ✔ Test #1.1 - with dropout - no data augmentation @started(21-05-26 18:31) @done(21-05-27 10:45) @lasted(16h14m45s)
     ☐ Test #1.2 - with dropout + scheduler - no data augmentation
     ☐ Test #2
