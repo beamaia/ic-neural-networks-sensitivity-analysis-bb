@@ -18,7 +18,7 @@ def train (model_class, train_loader, val_loader, weights):
     # lr = model_class.lr
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     model.to(device)
-    
+
     print("Starting training...")
     print(f"Device: {device}",end="\n\n")
 
@@ -40,12 +40,12 @@ def train (model_class, train_loader, val_loader, weights):
         running_loss, accuracy, y_predict_loader = train_epoch(model, optimizer, criterion, scheduler, train_loader, device)
  
         # Saves information
-        train_losses.append(np.mean(running_loss)) 
+        train_losses.append(running_loss) 
         train_accuracies.append(accuracy)
         y_predict.append(y_predict_loader)
 
         print(f"Accuracy: {accuracy:.2f} %")
-        print(f"Loss: {np.mean(running_loss):.2f}")
+        print(f"Loss: {np.mean(train_losses):.2f}")
 
         # Validation 
         val_losses, val_accuracies = validation(model, criterion, val_loader, device, val_losses, val_accuracies)
@@ -85,6 +85,7 @@ def train_epoch(model, optimizer, criterion, scheduler, train_loader, device):
         accuracies_train += (predicted == labels).sum().item()
         accuracy = accuracies_train / total_train * 100
 
+    running_loss = running_loss/total_train
     scheduler.step()
     
     return running_loss, accuracy, y_predict_loader
@@ -111,9 +112,10 @@ def validation(model, criterion, val_loader, device, val_losses, val_accuracies)
             accuracies_val += (predicted == labels).sum().item()
     
     accuracy_val = accuracies_val / total_val * 100
+    running_val = running_val_loss/total_val
 
     print(f"Val Accuracy: {accuracy_val:.2f} %")
-    print(f"Val Loss: {np.mean(running_val_loss):.2f}", end="\n\n")
+    print(f"Val Loss: {running_val:.2f}", end="\n\n")
     
     # Saving validation and 
     val_losses.append(np.mean(running_val_loss))
