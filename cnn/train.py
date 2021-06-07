@@ -83,8 +83,8 @@ def train_epoch(model, optimizer, criterion, scheduler, train_loader, device):
         y_predict_loader.append(predicted)
         total_train += labels.size(0)
         accuracies_train += (predicted == labels).sum().item()
-        accuracy = accuracies_train / total_train * 100
 
+    accuracy = accuracies_train / total_train * 100
     running_loss = running_loss/total_train
     scheduler.step()
     
@@ -118,7 +118,7 @@ def validation(model, criterion, val_loader, device, val_losses, val_accuracies)
     print(f"Val Loss: {running_val:.2f}", end="\n\n")
     
     # Saving validation and 
-    val_losses.append(np.mean(running_val_loss))
+    val_losses.append(running_val)
     val_accuracies.append(accuracy_val)
 
     return val_losses, val_accuracies
