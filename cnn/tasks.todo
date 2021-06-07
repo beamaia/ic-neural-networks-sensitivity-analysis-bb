@@ -10,19 +10,19 @@ Code related
 
 Train + test
 ☐ ResNet50
-    ✔ Test #1.0 - without dropout @done(21-05-29 23:37)
-    ✔ Test #1.1 - with dropout - no data augmentation @started(21-05-26 18:31) @done(21-05-27 10:45) @lasted(16h14m45s)
-    ✔ Test #1.2 - with dropout + scheduler - no data augmentation @started(21-05-30 08:45) @done(21-06-02 18:57) @lasted(3d10h12m30s)
-    ✔ Test #1.3 - with dropout + scheduler - dataloader with weighted sample @started(21-06-02 20:04) @done(21-06-05 02:10) @lasted(2d6h6m26s)
-    ☐ Test #2
+    ✔ Test #1.0 - Adam without dropout @done(21-05-29 23:37)
+    ✔ Test #1.1 - Adam with dropout - no data augmentation @started(21-05-26 18:31) @done(21-05-27 10:45) @lasted(16h14m45s)
+    ✔ Test #1.2 - Adam with dropout + scheduler - no data augmentation @started(21-05-30 08:45) @done(21-06-02 18:57) @lasted(3d10h12m30s)
+    ✔ Test #1.3 - Adam with dropout + scheduler - dataloader with weighted sample @started(21-06-02 20:04) @done(21-06-05 02:10) @lasted(2d6h6m26s)
+    ☐ Test #2 - with dropout + scheduler + SGD optim
     ☐ Test #3
 ☐ MobileNetV2
-    ☐ Test #1 - no data augmentation
+    ✔ Test #1 - no data augmentation @started(21-06-06 15:40) @done(21-06-07 09:17) @lasted(17h37m43s)
     ☐ Test #2 - no data augmentation
     ☐ Test #3 - no data augmentation
 ☐ VGG16
-    ☐ Test #1 - no data augmentation
-    ☐ Test #2 - no data augmentation
+    ✔ Test #1 - no data augmentation @started(21-06-05 02:17) @done(21-06-07 09:17) @lasted(2d7h46s)
+    ☐ Test #2 - no data augmentation + SGD @started(21-06-07 19:24)
     ☐ Test #3 - no data augmentation
 ☐ DenseNet121
     ☐ Test #1 - no data augmentation
