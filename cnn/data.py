@@ -23,9 +23,9 @@ HINTON_test = '/home/hinton/Desktop/Dados/Dataset-Dividido-aux/test/'
 def image_paths():
     print("Getting images' path...\n")
 
-    PATH_train = HINTON_train
-    PATH_val = HINTON_val
-    PATH_test = HINTON_test
+    PATH_train = TURING_train
+    PATH_val = TURING_val
+    PATH_test = TURING_test
     
     normal = 'classe0(normal)/*'
     carcinoma = 'classe1(carcinoma)/*'
@@ -97,9 +97,10 @@ def create_train_val_test(hw):
 # DataLoader
 
 class DatasetOral(torch.utils.data.Dataset):
-    def __init__(self, images, labels):
+    def __init__(self, images, labels, transform):
         self.labels = labels
         self.images = images
+        self.transform = transform
 
     def __len__(self):
         return len(self.labels)
@@ -109,6 +110,23 @@ class DatasetOral(torch.utils.data.Dataset):
 
 def create_dataloaders(x_train, y_train, x_val, y_val, x_test, y_test, train_sample_weights, batch_size=64, shuffle=True, num_workers=2):
     print("Creating dataloaders...", end='\n\n')
+
+    data_transforms = {
+        'train': transforms.Compose([
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomRotation(45),
+            transforms.ToTensor()
+        ]),
+        'val': transforms.Compose([
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomRotation(45),
+            transforms.ToTensor()
+        ]),
+        'test': transforms.Compose([
+            transforms.ToTensor()
+        ])
+    }
+
     params = {'batch_size': batch_size,
               'num_workers': num_workers}
 
@@ -128,13 +146,13 @@ def create_dataloaders(x_train, y_train, x_val, y_val, x_test, y_test, train_sam
 
     # print(x_train.shape, x_val.shape, x_test.shape, sep="\n")
 
-    train_set = DatasetOral(x_train, y_train)
+    train_set = DatasetOral(x_train, y_train, data_transforms['train'])
     train_loader = DataLoader(train_set, sampler=train_sampler, **params)
 
-    val_set = DatasetOral(x_val, y_val)
+    val_set = DatasetOral(x_val, y_val, data_transforms['val'])
     val_loader = DataLoader(val_set, **params)
 
-    test_set = DatasetOral(x_test, y_test)
+    test_set = DatasetOral(x_test, y_test, data_transforms['test'])
     test_loader = DataLoader(test_set, **params)
 
     return train_loader, val_loader, test_loader
