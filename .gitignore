@@ -4,6 +4,8 @@ __pycache__
 cnn/__pycache__
 
 # Folders
+images/patches/carcinoma
+images/patches/normal
 
 # Files
 *.zip
