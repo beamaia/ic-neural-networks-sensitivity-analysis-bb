@@ -22,7 +22,7 @@ Train + test
     ☐ Test #3 - no data augmentation
 ☐ VGG16
     ✔ Test #1 - no data augmentation @started(21-06-05 02:17) @done(21-06-07 09:17) @lasted(2d7h46s)
-    ☐ Test #2 - no data augmentation + SGD @started(21-06-07 19:24)
+    ✔ Test #2 - no data augmentation + SGD @started(21-06-07 19:24) @done(21-06-08 06:00) @lasted(10h36m21s)
     ☐ Test #3 - no data augmentation
 ☐ DenseNet121
     ☐ Test #1 - no data augmentation
