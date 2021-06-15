@@ -39,7 +39,7 @@ class Model:
             self.model = models.vgg16(pretrained=True)
 
             num_ftrs = self.model.classifier[6].in_features
-            # self.model.classifier[5] = nn.Dropout(dropout)
+            self.model.classifier[5] = nn.Dropout(dropout)
             self.model.classifier[6] = nn.Linear(num_ftrs,num_classes)
 
         elif self.model_name == "densenet121":
