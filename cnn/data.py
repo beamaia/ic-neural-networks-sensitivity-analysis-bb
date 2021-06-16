@@ -20,12 +20,44 @@ HINTON_train = '/home/hinton/Desktop/Dados/Dataset-Dividido-aux/train/'
 HINTON_val = '/home/hinton/Desktop/Dados/Dataset-Dividido-aux/val/'
 HINTON_test = '/home/hinton/Desktop/Dados/Dataset-Dividido-aux/test/'
 
+############### DATA AUGMENTATION
+
+DATA_WITH_AUG = {
+        'train': transforms.Compose([
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomRotation(45),
+            transforms.ToTensor()
+        ]),
+        'val': transforms.Compose([
+            transforms.RandomHorizontalFlip(),
+            transforms.RandomRotation(45),
+            transforms.ToTensor()
+        ]),
+        'test': transforms.Compose([
+            transforms.ToTensor()
+        ])
+}
+
+############### NO DATA AUGMENTATION
+
+DATA_NO_AUG = {
+        'train': transforms.Compose([
+            transforms.ToTensor()
+        ]),
+        'val': transforms.Compose([
+            transforms.ToTensor()
+        ]),
+        'test': transforms.Compose([
+            transforms.ToTensor()
+        ])
+}
+
 def image_paths():
     print("Getting images' path...\n")
 
-    PATH_train = TURING_train
-    PATH_val = TURING_val
-    PATH_test = TURING_test
+    PATH_train = HINTON_train
+    PATH_val = HINTON_val
+    PATH_test = HINTON_test
     
     normal = 'classe0(normal)/*'
     carcinoma = 'classe1(carcinoma)/*'
@@ -111,21 +143,7 @@ class DatasetOral(torch.utils.data.Dataset):
 def create_dataloaders(x_train, y_train, x_val, y_val, x_test, y_test, train_sample_weights, batch_size=64, shuffle=True, num_workers=2):
     print("Creating dataloaders...", end='\n\n')
 
-    data_transforms = {
-        'train': transforms.Compose([
-            transforms.RandomHorizontalFlip(),
-            transforms.RandomRotation(45),
-            transforms.ToTensor()
-        ]),
-        'val': transforms.Compose([
-            transforms.RandomHorizontalFlip(),
-            transforms.RandomRotation(45),
-            transforms.ToTensor()
-        ]),
-        'test': transforms.Compose([
-            transforms.ToTensor()
-        ])
-    }
+    data_transforms = DATA_NO_AUG
 
     params = {'batch_size': batch_size,
               'num_workers': num_workers}
