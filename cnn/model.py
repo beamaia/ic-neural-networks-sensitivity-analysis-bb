@@ -17,7 +17,7 @@ class Model:
 
     def configure_model(self):       
         num_classes = 2
-        dropout = 0.5
+        dropout = 0.1
 
         if self.model_name == "resnet50":
             self.model = models.resnet50(pretrained=True)
