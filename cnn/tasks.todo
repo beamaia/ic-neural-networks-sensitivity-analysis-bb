@@ -25,11 +25,11 @@ Train + test before removing white patches
     ✔ Test #3 - no data augmentation + SGD + without dropout @started(21-06-07 19:24) @done(21-06-08 06:00) @lasted(10h36m21s)
     ✔ Test #8 - data augmentation + SGD + without dropout @done(21-06-15 14:26)
 
-Train + test with images removed and all models with dropout
+Train + test with white images removed and all models with dropout
 ☐ ResNet50
-    ☐ Test #10.1 - no data augmentation + Adam 
-    ☐ Test #10.2 - no data augmentation + Adam 
-    ☐ Test #10.3 - no data augmentation + Adam 
+    ✔ Test #10.1 - no data augmentation + Adam @done(21-06-16)
+    ✔ Test #10.2 - no data augmentation + Adam @started(21-06-16) @done(21-06-17) 
+    ✔ Test #10.3 - no data augmentation + Adam @started(21-06-17) @done(21-06-17 12:59) @lasted(12h59m39s)
     ☐ Test #11.1 - no data augmentation + SGD
     ☐ Test #11.2 - no data augmentation + SGD
     ☐ Test #11.3 - no data augmentation + SGD
