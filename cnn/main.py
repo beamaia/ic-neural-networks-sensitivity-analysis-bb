@@ -61,7 +61,7 @@ def main(date_today, epochs, lr, op, model_name, version):
 
     # weights
     total = normal_len + carcinoma_len
-    normal_ratio, carcinoma_ratio = normal_len/total, carcinoma_len/total
+    normal_ratio, carcinoma_ratio = total/normal_len, total/carcinoma_len
     
     weight_tensor = torch.tensor([carcinoma_ratio, normal_ratio], device=device)
     weight_dic = {0: carcinoma_ratio, 1: normal_ratio}
