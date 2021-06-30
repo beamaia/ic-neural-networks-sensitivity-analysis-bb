@@ -41,10 +41,10 @@ Train + test with white images removed and all models with dropout
     ☐ Test #17.2 - no data augmentation + SGD
     ☐ Test #17.3 - no data augmentation + SGD
 ☐ VGG16
-    ☐ Test #12.1 - no data augmentation + SGD @started(21-06-23 08:07)
-    ☐ Test #12.2 - no data augmentation + SGD @started(21-06-23 08:07)
-    ☐ Test #12.3 - no data augmentation + SGD @started(21-06-23 08:07)
-    ☐ Test #13.1 - no data augmentation + Adam @started(21-06-23 08:07)
+    ✔ Test #12.1 - no data augmentation + SGD @started(21-06-23 08:07) @done(21-06-24 08:13) @lasted(1d6m33s)
+    ✔ Test #12.2 - no data augmentation + SGD @started(21-06-23 08:07) @done(21-06-28 23:08) @lasted(5d15h1m9s)
+    ✔ Test #12.3 - no data augmentation + SGD + no scheduler + 1/weights @started(21-06-23 08:07) @done(21-06-28 23:08) @lasted(5d15h1m10s)
+    ✔ Test #13.1 - no data augmentation + Adam + 1/weights @started(21-06-23 08:07) @done(21-06-29 23:00) @lasted(6d14h53m24s)
     ☐ Test #13.2 - no data augmentation + Adam @started(21-06-23 08:07)
     ☐ Test #13.3 - no data augmentation + Adam @started(21-06-23 08:07)
 ☐ DenseNet121
