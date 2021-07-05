@@ -53,6 +53,7 @@ def get_arg(args):
     return epochs, lr, model_name, version, op, date_today
 
 def main(date_today, epochs, lr, op, model_name, version):
+    torch.cuda.empty_cache()
     model = md.Model(epochs, lr, op, model_name, version)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
