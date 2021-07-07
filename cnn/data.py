@@ -73,7 +73,7 @@ def image_paths():
 
     return train_normal, train_carcinoma, val_normal, val_carcinoma, test_normal, test_carcinoma
 
-def process_images(images, height=1536, width=2048):
+def process_images(images, height=224, width=224):
     print("Processing images...", end="\n\n")
     
     pros_images = []
@@ -140,7 +140,7 @@ class DatasetOral(torch.utils.data.Dataset):
     def __getitem__(self, index):
         return self.images[index], self.labels[index]
 
-def create_dataloaders(x_train, y_train, x_val, y_val, x_test, y_test, train_sample_weights, batch_size=1, shuffle=True, num_workers=2):
+def create_dataloaders(x_train, y_train, x_val, y_val, x_test, y_test, train_sample_weights, batch_size=64, shuffle=True, num_workers=2):
     print("Creating dataloaders...", end='\n\n')
 
     data_transforms = DATA_NO_AUG
