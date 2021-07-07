@@ -30,9 +30,9 @@ Train + test with white images removed and all models with dropout
     ✔ Test #10.1 - no data augmentation + Adam @done(21-06-16)
     ✔ Test #10.2 - no data augmentation + Adam @started(21-06-16) @done(21-06-17) 
     ✔ Test #10.3 - no data augmentation + Adam @started(21-06-17) @done(21-06-17 12:59) @lasted(12h59m39s)
-    ☐ Test #16.1 - no data augmentation + SGD
-    ☐ Test #16.2 - no data augmentation + SGD
-    ☐ Test #16.3 - no data augmentation + SGD
+    ✔ Test #16.1 - no data augmentation + SGD @done(21-07-07 08:15)
+    ✔ Test #16.2 - no data augmentation + SGD @done(21-07-07 08:15)
+    ✔ Test #16.3 - no data augmentation + SGD @done(21-07-07 19:46)
 ☐ MobileNetV2
     ✔ Test #11.1 - no data augmentation + Adam @done(21-06-23 08:01)
     ✔ Test #11.2 - no data augmentation + Adam @done(21-06-23 08:01)
@@ -51,6 +51,9 @@ Train + test with white images removed and all models with dropout
     ✔ Test #14.1 - no data augmentation + Adam @started(21-06-23 08:07) @done(21-07-05 19:15) @lasted(1w5d11h8m5s)
     ✔ Test #14.2 - no data augmentation + Adam @started(21-06-23 08:07) @done(21-07-05 19:15) @lasted(1w5d11h8m7s)
     ✔ Test #14.3 - no data augmentation + Adam @started(21-06-23 08:07) @done(21-07-05 19:15) @lasted(1w5d11h8m9s)
+    ☐ Test #18.1 - no data augmentation + SGD
+    ☐ Test #18.2 - no data augmentation + SGD
+    ☐ Test #18.3 - no data augmentation + SGD
 ☐ EfficientNetB4
     ☐ Test #15.1 - no data augmentation + Adam
     ☐ Test #15.2 - no data augmentation + Adam
