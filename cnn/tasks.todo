@@ -51,7 +51,7 @@ Train + test with white images removed and all models with dropout
     ✔ Test #14.1 - no data augmentation + Adam @started(21-06-23 08:07) @done(21-07-05 19:15) @lasted(1w5d11h8m5s)
     ✔ Test #14.2 - no data augmentation + Adam @started(21-06-23 08:07) @done(21-07-05 19:15) @lasted(1w5d11h8m7s)
     ✔ Test #14.3 - no data augmentation + Adam @started(21-06-23 08:07) @done(21-07-05 19:15) @lasted(1w5d11h8m9s)
-    ☐ Test #18.1 - no data augmentation + SGD
+    ✔ Test #18.1 - no data augmentation + SGD @done(21-07-09 08:19)
     ☐ Test #18.2 - no data augmentation + SGD
     ☐ Test #18.3 - no data augmentation + SGD
 ☐ EfficientNetB4
