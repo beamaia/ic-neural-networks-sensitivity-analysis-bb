@@ -40,8 +40,8 @@ def train (model_class, train_loader, val_loader, weights):
         running_loss, accuracy, y_predict_loader = train_epoch(model, optimizer, criterion, scheduler, train_loader, device)
  
         # Saves information
-        # train_losses.append(running_loss) 
-        # train_accuracies.append(accuracy)
+        train_losses.append(running_loss) 
+        train_accuracies.append(accuracy)
         y_predict.append(y_predict_loader)
 
         print(f"Accuracy: {accuracy:.2f} %")
@@ -81,7 +81,7 @@ def train_epoch(model, optimizer, criterion, scheduler, train_loader, device):
 
         #Train accuracy
         _, predicted = torch.max(outputs, 1)
-        # y_predict_loader.append(predicted)
+        y_predict_loader.append(predicted)
         total_train += labels.size(0)
         accuracies_train += (predicted == labels).sum().item()
 
