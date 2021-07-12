@@ -3,8 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import sys 
 
-SAVE_PATH = 'results/train_val/mobilenetv2-v11.1-dp=0.1'
-DATA_PATH = 'results/train_val/mobilenetv2-adam-v11.1.csv'
+SAVE_PATH = 'results/train_val/vgg16-v12.1-dp=0.1'
+DATA_PATH = 'results/train_val/vgg16-sgd-v12.1.csv'
 LOSS = True
 ACCURACY = True
 
@@ -25,14 +25,16 @@ def plot(raw_data, path=SAVE_PATH, losses=True, accuracy=False):
         plot_aux(epochs, tr_losses, v_losses)
         plt.ylabel('Average Loss')
         plt.title("Average Loss of Train and Validation per Epoch")
-        plt.savefig(SAVE_PATH + "-loss.png")
+        plt.ylim(0, .5)
+        plt.savefig(path + "-loss.png")
 
     if accuracy:
         plt.close()
         plot_aux(epochs, tr_accur, v_accur)
         plt.ylabel('Average Accuracy')
         plt.title("Average Accuracy of Train and Validation per Epoch")
-        plt.savefig(SAVE_PATH + "-accuracy.png")
+        plt.ylim(0, 100)
+        plt.savefig(path + "-accuracy.png")
 
 
 if __name__ == '__main__':
@@ -54,10 +56,6 @@ if __name__ == '__main__':
         
         if param == "data":
             data_path = value
-        elif param == "img":
-            image_path = value
-        elif param == "img":
-            image_path = value
         elif param == "img":
             image_path = value
 
