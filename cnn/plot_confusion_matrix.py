@@ -24,7 +24,7 @@ def plot_confusion_matrix(array, cnn, optim, version):
 
 if __name__ == "__main__":
     raw_data = pd.read_csv("results/metrics.csv")
-    results = raw_data.drop([i for i in range(9)])
+    results = raw_data.drop([i for i in range(12)])
 
     for index, df_index in enumerate(results.index):
         tp = results.tp[df_index]
