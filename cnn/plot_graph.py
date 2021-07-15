@@ -6,15 +6,15 @@ import sys
 SAVE_PATH = 'results/train_val/vgg16-v12.1-dp=0.1'
 DATA_PATH = 'results/train_val/vgg16-sgd-v12.1.csv'
 LOSS = True
-ACCURACY = True
+ACCURACY = False
 
 def plot_aux(x, y_train, y_val):
     plt.plot(x, y_train, 'g', label='train')
     plt.plot(x, y_val, 'b', label='validation')
-    plt.xlabel('Epoch')
+    plt.xlabel('época')
     plt.legend()
 
-def plot(raw_data, path=SAVE_PATH, losses=True, accuracy=False):
+def plot(raw_data, model, optim, path=SAVE_PATH, losses=True, accuracy=False):
     tr_losses = raw_data.train_losses
     v_losses = raw_data.val_losses
     tr_accur = raw_data.train_accuracies
@@ -23,9 +23,9 @@ def plot(raw_data, path=SAVE_PATH, losses=True, accuracy=False):
 
     if losses:
         plot_aux(epochs, tr_losses, v_losses)
-        plt.ylabel('Average Loss')
-        plt.title("Average Loss of Train and Validation per Epoch")
-        plt.ylim(0, .5)
+        plt.ylabel('Perda Média')
+        plt.title(f"Perda Média durante Treino e Validação por Época - {model} - {optim}")
+        plt.ylim(0, 1)
         plt.savefig(path + "-loss.png")
 
     if accuracy:
@@ -58,6 +58,10 @@ if __name__ == '__main__':
             data_path = value
         elif param == "img":
             image_path = value
+        elif param == "model":
+            model = value
+        elif param == "optim":
+            optim = value
 
     raw_data = pd.read_csv(data_path)
-    plot(raw_data, image_path,)
+    plot(raw_data, model, optim, image_path, loss, accuracy)
